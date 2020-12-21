@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/gallery_fragment">
+
+    <fragment
+        android:id="@+id/gallery_fragment"
+        android:name = "edu.uw.voelkc.photogram.GalleryFragment"
+        android:label="Gallery"
+        tools:layout="@layout/fragment_gallery">
+        <action
+            android:id="@+id/action_to_UploadFragment"
+            app:destination="@id/upload_fragment"/>
+        <action
+            android:id="@+id/action_to_SettingsFragment"
+            app:destination="@id/settings_fragment"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/upload_fragment"
+        android:name = "edu.uw.voelkc.photogram.UploadFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_upload">
+        <action
+            android:id="@+id/action_to_GalleryFragment"
+            app:destination="@id/gallery_fragment"/>
+        <action
+            android:id="@+id/action_to_SettingsFragment"
+            app:destination="@id/settings_fragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/settings_fragment"
+        android:label="Settings"
+        android:name="edu.uw.voelkc.photogram.SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
+
+</navigation>
