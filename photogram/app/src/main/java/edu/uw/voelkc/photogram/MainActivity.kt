@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     createSignInIntent()
                     val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
                 } else {
-                    //Log.v(TAG, "Signed Out")
+                    Log.v(TAG, "Signed Out")
                     signOut()
                 }
                 return true
@@ -57,17 +57,6 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.settings_fragment)
                 return true
             }
-
-            /*
-            R.id.set_menu -> {
-               /* return NavigationUI.onNavDestinationSelected(item!!,
-                    findNavController(R.id.nav_host_fragment))
-                        || super.onOptionsItemSelected(item) */
-                Log.v(TAG,"You clicked settings")
-                return true
-            }
-
-            */
 
             else -> super.onOptionsItemSelected(item)
         }
