@@ -26,6 +26,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_gallery.*
+import kotlinx.android.synthetic.main.post_item.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +46,7 @@ class GalleryFragment : Fragment() {
         val likeCount : TextView = view.findViewById<TextView>(R.id.like_count)
         val postImage: ImageView = view.findViewById<ImageView>(R.id.post_image)
         val likeButton: ImageButton = view.findViewById<ImageButton>(R.id.like_button)
+        val userName: TextView = view.findViewById<TextView>(R.id.txt_user)
     }
 
     private val TAG = "GalleryFragment"
@@ -54,7 +56,6 @@ class GalleryFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val viewData = mutableListOf<String>()
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -102,7 +103,8 @@ class GalleryFragment : Fragment() {
 
             protected override fun onBindViewHolder(holder: PhotoHolder, position: Int, model: PhotoData) {
                 holder.postCaption.text = model.title
-                //holder.likeCount.text = model.likes
+
+                holder.userName.text = model.userName
 
                 val imageRef = getRef(position)
                 Log.v(TAG, imageRef.toString())
@@ -131,7 +133,6 @@ class GalleryFragment : Fragment() {
                     } else {
                         Toast.makeText(activity?.applicationContext, "Must be logged in to interact with posts", Toast.LENGTH_LONG).show()
                     }
-
                 }
 
                 holder.likeCount.text = model.likes.size.toString()
@@ -140,8 +141,6 @@ class GalleryFragment : Fragment() {
                     .load(model.imgURL)
                     .fallback(ColorDrawable(Color.GRAY))
                     .into(holder.postImage)
-
-                Log.v(TAG, "hi connor ${model.title}")
             }
 
             override fun onDataChanged() {
@@ -152,7 +151,6 @@ class GalleryFragment : Fragment() {
         val recycler = rootView.findViewById<RecyclerView>(R.id.recycler_view)
         recycler.layoutManager = LinearLayoutManager(this.context)
         recycler.adapter = adapter
-
 
         return rootView
     }

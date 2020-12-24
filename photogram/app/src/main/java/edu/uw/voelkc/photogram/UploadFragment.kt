@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -128,12 +129,19 @@ class UploadFragment : Fragment() {
                             //Get the userUID
                             //val userUID = activity.getUserUID()
                             val user = Firebase.auth.currentUser
-
-                            val data: PhotoData = PhotoData("$downloadUri", title, user!!.uid, fakeMap)
+                            var name = user!!.email
+                            name = if (name == null) {
+                                ""
+                            } else {
+                                name?.substringBefore('@')
+                            }
+                            val data: PhotoData = PhotoData("$downloadUri", title, user!!.uid, name, fakeMap)
                             //Upload the data
                             //Create unique reference
-                            val myRef = database.getReference("photos/$title${UUID.randomUUID()}") // I think this accomplishes the same s ref.push().setValue()
-                            myRef.setValue(data) // upload                                                                   // but I liked how this works better for testing
+                            val myRef = database.getReference("photos/$title${UUID.randomUUID()}")
+                            myRef.setValue(data) // upload
+
+                            Log.v(TAG, ServerValue.TIMESTAMP.toString())
 
 
                         } else {

@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     createSignInIntent()
                     val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
                 } else {
-                    Log.v(TAG, "Signed Out")
+                   Toast.makeText(this,"Logged Out", Toast.LENGTH_SHORT).show()
                     signOut()
                 }
                 return true
